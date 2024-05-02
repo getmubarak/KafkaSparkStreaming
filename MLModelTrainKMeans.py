@@ -67,8 +67,8 @@ print("silhouette_score on training data  = %g" % silhouette_score)
 #print("Root Mean Squared Error (RMSE) on training data = %g" % rmse)
         
 # Save the trained model
-model_path = "/tmp/models/autoencoder_model3"
-model.save(model_path)
+model_path = "/tmp/models/autoencoder_model"
+model.write().overwrite().save(model_path)
 
 # Stop the SparkSession
 #spark.stop()
