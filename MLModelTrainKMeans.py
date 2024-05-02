@@ -40,8 +40,8 @@ encoder = OneHotEncoderEstimator(inputCols=[indexer.getOutputCol() for indexer i
 df_cleaned = df.filter(df["Amount"].isNotNull())
 
 # Assemble features
-assembler = VectorAssembler(inputCols=["Amount"], outputCol="features")
-
+assembler = VectorAssembler(inputCols=["Amount", "Merchant_encoded","TransactionType_encoded", "Location_encoded"], outputCol="features")
+                                
 # Define autoencoder model
 # autoencoder = LinearRegression(featuresCol="features", labelCol="Amount")
 # Define K-Means model
@@ -67,7 +67,7 @@ print("silhouette_score on training data  = %g" % silhouette_score)
 #print("Root Mean Squared Error (RMSE) on training data = %g" % rmse)
         
 # Save the trained model
-model_path = "/tmp/models/autoencoder_model"
+model_path = "/tmp/models/autoencoder_model3"
 model.save(model_path)
 
 # Stop the SparkSession
