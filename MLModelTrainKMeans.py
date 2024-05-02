@@ -51,11 +51,10 @@ kmeans = KMeans(featuresCol="features", k=3, seed=123)
 pipeline = Pipeline(stages=indexers + [encoder, assembler, kmeans])
 
 # Train the autoencoder model
-model = pipeline.fit(df_cleaned)
+pipelineModel = pipeline.fit(df_cleaned)
 
 # Evaluate the model
-predictions = model.transform(df_cleaned)
-
+predictions = pipelineModel.transform(df_cleaned)
 
 # Evaluate silhouette score
 evaluator = ClusteringEvaluator()
@@ -66,9 +65,9 @@ print("silhouette_score on training data  = %g" % silhouette_score)
 #rmse = evaluator.evaluate(predictions)
 #print("Root Mean Squared Error (RMSE) on training data = %g" % rmse)
         
-# Save the trained model
-model_path = "/tmp/models/autoencoder_model"
-model.write().overwrite().save(model_path)
+# Save the trained pipeline model
+pipelineModel_path = "/tmp/models/clustering_model"
+pipelineModel.write().overwrite().save(pipelineModel_path)
 
 # Stop the SparkSession
 #spark.stop()
